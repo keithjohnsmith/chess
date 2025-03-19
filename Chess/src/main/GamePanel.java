@@ -18,12 +18,15 @@ import piece.Rook;
 
 public class GamePanel extends JPanel  implements Runnable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1100;
 	public static final int HEIGHT = 800;
 	final int FPS = 60;
 	Thread gameThread;
 	Board board = new Board();
-
 	Mouse mouse = new Mouse();
 	
 	
@@ -40,7 +43,6 @@ public class GamePanel extends JPanel  implements Runnable{
 	public GamePanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setBackground(Color.black);
-		
 		addMouseMotionListener(mouse);
 		addMouseListener(mouse);
 		
@@ -142,13 +144,12 @@ public class GamePanel extends JPanel  implements Runnable{
 		if(mouse.pressed) {
 			if(activeP == null) {
 				for(Piece piece : simPieces) {
-					if(piece.color == currentColor &&
-							piece.col == mouse.x/Board.SQUARE_SIZE &&
-							piece.row == mouse.y/Board.SQUARE_SIZE) {
+					if(piece.color == currentColor && piece.col == mouse.x/Board.SQUARE_SIZE && piece.row == mouse.y/Board.SQUARE_SIZE) {
 						activeP = piece;
 					}
 				}
-			}else {
+			}
+			else {
 				simulate();
 			}
 		}
@@ -156,8 +157,8 @@ public class GamePanel extends JPanel  implements Runnable{
 	
 	private void simulate() {
 		
-		activeP.x = mouse.x;
-		activeP.y = mouse.y;
+		activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
+		activeP.y = mouse.y - Board.HALF_SQUARE_SIZE;
 		
 	}
 
